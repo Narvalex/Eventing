@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADF10024-6C96-4C73-9FBC-EDB23B0555BD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Inventory.Server</RootNamespace>
-    <AssemblyName>Inventory.Server</AssemblyName>
+    <ProjectGuid>{51572F38-E4D9-4AE3-B766-BE5B45C94E94}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Inventory.Domain</RootNamespace>
+    <AssemblyName>Inventory.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,15 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="InventoryItem.cs" />
+    <Compile Include="InventoryItemCommands.cs" />
+    <Compile Include="InventoryItemEvents.cs" />
+    <Compile Include="InventoryItemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Eventing.Core\Eventing.Core.csproj">
-      <Project>{d8a3116a-5c51-4a6f-b364-512948e5a792}</Project>
+      <Project>{D8A3116A-5C51-4A6F-B364-512948E5A792}</Project>
       <Name>Eventing.Core</Name>
     </ProjectReference>
   </ItemGroup>

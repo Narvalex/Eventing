@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\EventSourced.cs" />
+    <Compile Include="Domain\EventSourcedService.cs" />
+    <Compile Include="Domain\IEventSourced.cs" />
+    <Compile Include="Domain\IEventSourcedReader.cs" />
+    <Compile Include="Domain\IEventSourcedRepository.cs" />
+    <Compile Include="Domain\InMemoryEventSourcedRepository.cs" />
+    <Compile Include="Domain\ISnapshot.cs" />
+    <Compile Include="Domain\Snapshot.cs" />
+    <Compile Include="Domain\StreamCategoryAttribute.cs" />
     <Compile Include="Log\ConsoleLogger.cs" />
     <Compile Include="Log\ILogLite.cs" />
     <Compile Include="Log\LazyLogger.cs" />
