@@ -4,6 +4,8 @@ namespace Eventing.Core.Domain
 {
     public interface IEventSourcedReader
     {
-        Task<T> GetAsync<T>(string streamName) where T : class, IEventSourced, new();
+        // StreamName = StreamCagegory + StreamId
+        Task<T> GetByIdAsync<T>(string streamId) where T : class, IEventSourced, new();
+        Task<T> GetByNameAsync<T>(string streamName) where T : class, IEventSourced, new();
     }
 }
