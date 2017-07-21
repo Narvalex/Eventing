@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Eventing.Core.Domain;
+using System;
 using System.Threading.Tasks;
 
-namespace Eventing.Core.Domain
+namespace Eventing.Core.Persistence
 {
     public interface IEventSourcedRepository : IEventSourcedReader
     {

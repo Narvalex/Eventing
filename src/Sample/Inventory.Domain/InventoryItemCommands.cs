@@ -13,4 +13,16 @@ namespace Inventory.Domain
         public Guid Id { get; }
         public string Name { get; }
     }
+
+    public class CheckInItemsToInventory
+    {
+        public CheckInItemsToInventory(Guid id, int count)
+        {
+            this.Id = id;
+            this.Count = count;
+        }
+
+        public Guid Id { get; }
+        public int Count { get; }
+    }
 }

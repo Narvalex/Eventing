@@ -71,25 +71,30 @@ namespace Eventing.TestHelpers
         void And<TSnapshot>(Action<TSnapshot> assert) where TSnapshot : ISnapshot;
     }
 
-    public class TestableRepository : InMemoryEventSourcedRepository
+    public class TestableRepository : InMemoryEventSourcedRepository, IEventSourcedRepository
     {
-        public ICollection<object> LastCommited { get; private set; }
-        public ISnapshot LastSnapshot { get; private set; }
+        private ICollection<string> lastCommited;
+        private string lastSnapshot;
+
+        public ICollection<object> LastCommited => this.lastCommited.Select(x => this.serializer.Deserialize(x)).ToArray();
+        public ISnapshot LastSnapshot => this.serializer.Deserialize<ISnapshot>(this.lastSnapshot);
 
         public void Preload(string streamName, object[] @events)
         {
             if (@events.Length < 1) return;
 
-            this.streams[streamName] = @events.ToList();
+            this.streams[streamName] = @events.Select(x => this.serializer.Serialize(x)).ToList();
         }
 
         public async new Task SaveAsync(IEventSourced eventSourced)
         {
-            var events = eventSourced.NewEvents;
+            // var events = eventSourced.NewEvents; // this reference will die.
+            var events = new List<object>();
+            events.AddRange(eventSourced.NewEvents);
             var snapshot = eventSourced.TakeSnapshot();
             await base.SaveAsync(eventSourced);
-            this.LastCommited = events;
-            this.LastSnapshot = snapshot;
+            this.lastCommited = events.Select(x => this.serializer.Serialize(x)).ToList();
+            this.lastSnapshot = this.serializer.Serialize(snapshot);
         }
     }
 }
