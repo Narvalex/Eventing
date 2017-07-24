@@ -1,4 +1,5 @@
 ﻿using Eventing.Core.Domain;
+using Eventing.Core.Persistence;
 using System.Threading.Tasks;
 
 namespace Inventory.Domain

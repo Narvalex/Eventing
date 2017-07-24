@@ -1,4 +1,6 @@
-﻿namespace Eventing.Core.Domain
+﻿using Eventing.Core.Persistence;
+
+namespace Eventing.Core.Domain
 {
     public abstract class EventSourcedService
     {

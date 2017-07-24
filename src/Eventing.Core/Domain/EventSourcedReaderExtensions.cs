@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eventing.Core.Persistence;
+using System;
 using System.Threading.Tasks;
 
 namespace Eventing.Core.Domain

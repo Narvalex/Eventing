@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C1FC9BB-A213-4E09-8FD2-F13ADFA758B4}</ProjectGuid>
+    <ProjectGuid>{41188308-1996-4D2F-B30D-4BEBAA03EBDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Eventing.GetEventStore</RootNamespace>
-    <AssemblyName>Eventing.GetEventStore</AssemblyName>
+    <RootNamespace>Inventory.Common</RootNamespace>
+    <AssemblyName>Inventory.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EventStore.ClientAPI, Version=4.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EventStore.Client.4.0.0\lib\net40\EventStore.ClientAPI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,20 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetEventStoreEventSourcedRepository.cs" />
-    <Compile Include="GetEventStoreManager.cs" />
-    <Compile Include="GetEventStoreSubscriber.cs" />
-    <Compile Include="GetEventStoreSubscription.cs" />
+    <Compile Include="Endpoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Eventing.Core\Eventing.Core.csproj">
-      <Project>{d8a3116a-5c51-4a6f-b364-512948e5a792}</Project>
-      <Name>Eventing.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="SimpleContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
