@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="InventoryController.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Filter\GlobalErrorAttribute.cs" />
     <Compile Include="Program.cs" />
@@ -89,6 +90,10 @@
     <ProjectReference Include="..\Inventory.Common\Inventory.Common.csproj">
       <Project>{41188308-1996-4D2F-B30D-4BEBAA03EBDE}</Project>
       <Name>Inventory.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory.Domain\Inventory.Domain.csproj">
+      <Project>{51572F38-E4D9-4AE3-B766-BE5B45C94E94}</Project>
+      <Name>Inventory.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

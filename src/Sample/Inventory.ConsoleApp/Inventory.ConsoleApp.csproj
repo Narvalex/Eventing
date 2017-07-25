@@ -42,11 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ConsoleController.cs" />
+    <Compile Include="Common\IConsoleController.cs" />
+    <Compile Include="InventoryController.cs" />
+    <Compile Include="InventoryView.cs" />
+    <Compile Include="MainController.cs" />
+    <Compile Include="MainView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Eventing.Core\Eventing.Core.csproj">
+      <Project>{d8a3116a-5c51-4a6f-b364-512948e5a792}</Project>
+      <Name>Eventing.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
