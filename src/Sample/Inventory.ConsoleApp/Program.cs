@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Inventory.ConsoleApp
+﻿namespace Inventory.ConsoleApp
 {
     class Program
     {
         static void Main(string[] args)
         {
+            ServiceLocator.Initialize();
+
+            var mainController = ServiceLocator.ResolveSingleton<MainController>();
+            mainController.StartCommandLoop();
         }
     }
 }

@@ -8,6 +8,10 @@ namespace Inventory.ConsoleApp.Common
 
         public string Description { get; }
 
+        public string Key => this.key;
+
+        public string Args => null;
+
         public ConsoleController(string key, string description)
         {
             Ensure.NotNullOrWhiteSpace(key, nameof(key));
