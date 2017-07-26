@@ -74,7 +74,7 @@ namespace Inventory.Server
             var baseUrl = AppConfig.ServerBaseUrl;
             WebApiStartup.OnAppDisposing = CleanUp;
             WebApp.Start<WebApiStartup>(baseUrl);
-            log.Verbose("Web server is running at " + baseUrl);
+            log.Success("Web server is running at " + baseUrl);
         }
 
         static void RunInMemory()
