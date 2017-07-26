@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Eventing.GetEventStore
 {
-    public class GetEventStoreManager
+    public class EventStoreManager
     {
-        private ILogLite log = LogManager.GetLoggerFor<GetEventStoreManager>();
+        private ILogLite log = LogManager.GetLoggerFor<EventStoreManager>();
 
         private Process process;
         private readonly string path = @".\EventStore\EventStore.ClusterNode.exe";
-        private readonly string args = "--db=./ESData --start-standard-projections=true --run-projections=all";
+        private readonly string args = "--db=./ESData --start-standard-projections=true --run-projections=all --stats-period-sec=3600";
 
         private readonly UserCredentials userCredentials;
         private readonly IPEndPoint ipEndPoint;
@@ -34,7 +34,7 @@ namespace Eventing.GetEventStore
 
         private readonly object resilientConnectionLock = new object();
 
-        public GetEventStoreManager(
+        public EventStoreManager(
             string defaultUserName = "admin",
             string defaultPassword = "changeit",
             string extIp = "127.0.0.1",

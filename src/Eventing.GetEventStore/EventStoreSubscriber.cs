@@ -5,12 +5,12 @@ using System;
 
 namespace Eventing.GetEventStore
 {
-    public class GetEventStoreSubscriber : IEventSubscriber
+    public class EventStoreSubscriber : IEventSubscriber
     {
         private readonly IEventStoreConnection resilientConnection;
         private readonly IJsonSerializer serializer;
 
-        public GetEventStoreSubscriber(IEventStoreConnection resilientConnection, IJsonSerializer serializer)
+        public EventStoreSubscriber(IEventStoreConnection resilientConnection, IJsonSerializer serializer)
         {
             Ensure.NotNull(resilientConnection, nameof(resilientConnection));
             Ensure.NotNull(serializer, nameof(serializer));
@@ -21,7 +21,7 @@ namespace Eventing.GetEventStore
 
         public IEventSubscription CreateSubscription(string streamName, Lazy<long?> lastCheckpoint, Action<long, object> handler)
         {
-            return new GetEventStoreSubscription(
+            return new EventStoreSubscription(
                 this.resilientConnection,
                 this.serializer,
                 streamName,

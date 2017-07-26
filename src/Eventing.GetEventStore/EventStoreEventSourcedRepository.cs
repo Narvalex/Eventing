@@ -1,5 +1,5 @@
-﻿using Eventing.Core.Persistence;
-using Eventing.Core.Domain;
+﻿using Eventing.Core.Domain;
+using Eventing.Core.Persistence;
 using Eventing.Core.Serialization;
 using EventStore.ClientAPI;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Eventing.GetEventStore
 {
-    public class GetEventStoreEventSourcedRepository : IEventSourcedRepository
+    public class EventStoreEventSourcedRepository : IEventSourcedRepository
     {
         private readonly Func<Task<IEventStoreConnection>> connectionFactory;
         private readonly IJsonSerializer serializer;
@@ -19,7 +19,7 @@ namespace Eventing.GetEventStore
         private readonly int readPageSize;
         private readonly int writePageSize;
 
-        public GetEventStoreEventSourcedRepository(
+        public EventStoreEventSourcedRepository(
          Func<Task<IEventStoreConnection>> connectionFactory,
             IJsonSerializer serializer,
             ISnapshotCache snapshotCache,

@@ -8,9 +8,9 @@ using System.Threading;
 
 namespace Eventing.GetEventStore
 {
-    public class GetEventStoreSubscription : IEventSubscription
+    public class EventStoreSubscription : IEventSubscription
     {
-        private ILogLite log = LogManager.GetLoggerFor<GetEventStoreSubscription>();
+        private ILogLite log = LogManager.GetLoggerFor<EventStoreSubscription>();
 
         private readonly IEventStoreConnection resilientConnection;
         private readonly IJsonSerializer serializer;
@@ -25,7 +25,7 @@ namespace Eventing.GetEventStore
 
         private readonly object lockObject = new object();
 
-        public GetEventStoreSubscription(IEventStoreConnection resilientConnection, IJsonSerializer serializer, string streamName, Lazy<long?> lazyLastCheckpoint, Action<long, object> handler)
+        public EventStoreSubscription(IEventStoreConnection resilientConnection, IJsonSerializer serializer, string streamName, Lazy<long?> lazyLastCheckpoint, Action<long, object> handler)
         {
             Ensure.NotNull(resilientConnection, nameof(resilientConnection));
             Ensure.NotNullOrWhiteSpace(streamName, nameof(streamName));
