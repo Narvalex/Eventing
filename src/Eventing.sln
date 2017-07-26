@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Domain", "Sample\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Domain.Tests", "Sample\Inventory.Domain.Tests\Inventory.Domain.Tests.csproj", "{5D175059-8F21-435C-AF33-6BABF43FBD17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.TestHelpers", "Eventing.TestHelpers\Eventing.TestHelpers.csproj", "{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.GetEventStore", "Eventing.GetEventStore\Eventing.GetEventStore.csproj", "{7C1FC9BB-A213-4E09-8FD2-F13ADFA758B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Client", "Sample\Inventory.Client\Inventory.Client.csproj", "{74FE2761-E506-4514-AC13-9973FF7EBA23}"
@@ -24,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.HttpClient", "Eventing.HttpClient\Eventing.HttpClient.csproj", "{FD80989B-08E7-446A-B967-670BAEB4BD5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Common", "Sample\Inventory.Common\Inventory.Common.csproj", "{41188308-1996-4D2F-B30D-4BEBAA03EBDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.TestHelpers", "Eventing.TestHelpers\Eventing.TestHelpers.csproj", "{31913791-9E19-4F54-BC07-EF281988C0CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,12 +56,6 @@ Global
 		{5D175059-8F21-435C-AF33-6BABF43FBD17}.DropDb|Any CPU.Build.0 = DropDb|Any CPU
 		{5D175059-8F21-435C-AF33-6BABF43FBD17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D175059-8F21-435C-AF33-6BABF43FBD17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.DropDb|Any CPU.ActiveCfg = DropDb|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.DropDb|Any CPU.Build.0 = DropDb|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4BA7FA1-B2F9-4543-8013-5ECC3BED5B50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C1FC9BB-A213-4E09-8FD2-F13ADFA758B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C1FC9BB-A213-4E09-8FD2-F13ADFA758B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C1FC9BB-A213-4E09-8FD2-F13ADFA758B4}.DropDb|Any CPU.ActiveCfg = DropDb|Any CPU
@@ -92,6 +86,12 @@ Global
 		{41188308-1996-4D2F-B30D-4BEBAA03EBDE}.DropDb|Any CPU.Build.0 = DropDb|Any CPU
 		{41188308-1996-4D2F-B30D-4BEBAA03EBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41188308-1996-4D2F-B30D-4BEBAA03EBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.DropDb|Any CPU.ActiveCfg = Debug|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.DropDb|Any CPU.Build.0 = Debug|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31913791-9E19-4F54-BC07-EF281988C0CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
