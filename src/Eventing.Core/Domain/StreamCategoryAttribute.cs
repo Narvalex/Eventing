@@ -33,5 +33,16 @@ namespace Eventing.Core.Domain
                         .FirstOrDefault(a => a is StreamCategoryAttribute);
             return att is null ? null : ((StreamCategoryAttribute)att).CategoryName;
         }
+
+        public static string GetCategoryProjectionStream<T>()
+        {
+            return GetCategoryProjectionStream(typeof(T));
+        }
+
+        public static string GetCategoryProjectionStream(Type type)
+        {
+            var category = GetCategory(type);
+            return $"$ce-{category}";
+        }
     }
 }
