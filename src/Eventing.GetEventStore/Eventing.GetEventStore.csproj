@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetEventStoreEventSourcedRepository.cs" />
-    <Compile Include="GetEventStoreManager.cs" />
-    <Compile Include="GetEventStoreSubscriber.cs" />
-    <Compile Include="GetEventStoreSubscription.cs" />
+    <Compile Include="EventStoreEventSourcedRepository.cs" />
+    <Compile Include="EventStoreManager.cs" />
+    <Compile Include="EventStoreSubscriber.cs" />
+    <Compile Include="EventStoreSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

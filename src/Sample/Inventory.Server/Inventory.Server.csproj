@@ -87,6 +87,10 @@
       <Project>{d8a3116a-5c51-4a6f-b364-512948e5a792}</Project>
       <Name>Eventing.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Eventing.GetEventStore\Eventing.GetEventStore.csproj">
+      <Project>{7c1fc9bb-a213-4e09-8fd2-f13adfa758b4}</Project>
+      <Name>Eventing.GetEventStore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Inventory.Common\Inventory.Common.csproj">
       <Project>{41188308-1996-4D2F-B30D-4BEBAA03EBDE}</Project>
       <Name>Inventory.Common</Name>
@@ -96,5 +100,6 @@
       <Name>Inventory.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using Eventing.Log;
+﻿using Eventing.GetEventStore;
+using Eventing.Log;
 using Microsoft.Owin.Hosting;
 using System;
 using System.Runtime.InteropServices;
@@ -8,6 +9,7 @@ namespace Inventory.Server
     class Program
     {
         private static ILogLite _log = LogManager.GlobalLogger;
+        private static bool _runInMemory;
         #region Extern References
         // Source: http://stackoverflow.com/questions/474679/capture-console-exit-c-sharp
         [DllImport("Kernel32")]
@@ -42,8 +44,8 @@ namespace Inventory.Server
             ServiceLocator.Initialize();
             log.Verbose("All dependencies were resolved successfully");
 
-            var runInMemory = AppConfig.RunInMemory;
-            if (runInMemory)
+            _runInMemory = AppConfig.RunInMemory;
+            if (_runInMemory)
                 RunInMemory();
             else
                 RunInEventStore();
@@ -85,12 +87,24 @@ namespace Inventory.Server
         {
             var log = _log;
             log.Info("Runing IN EVENT STORE");
-
+            var esm = ServiceLocator.ResolveSingleton<EventStoreManager>();
+#if DROP_DB
+            log.Warning("Executing DROP AND CRATE EventStore");
+            esm.DropAndCreateDb();
+#endif
+#if !DROP_DB
+            log.Info("Executing CREATE IF NOT EXISTS EventStore");
+            esm.CreateDbIfNotExists();
+#endif
         }
 
         static void CleanUp()
         {
-
+            if (_runInMemory)
+                return;
+            else
+                ServiceLocator.ResolveSingleton<EventStoreManager>()
+                    .TearDown();
         }
     }
 }

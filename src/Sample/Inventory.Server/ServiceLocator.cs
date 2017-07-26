@@ -1,4 +1,5 @@
-﻿using Inventory.Common;
+﻿using Eventing.GetEventStore;
+using Inventory.Common;
 
 namespace Inventory.Server
 {
@@ -13,6 +14,10 @@ namespace Inventory.Server
         public static void Initialize()
         {
             var container = _container;
+
+            var esm = new EventStoreManager();
+
+            container.Register<EventStoreManager>(esm);
         }
     }
 }
