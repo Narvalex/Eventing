@@ -29,7 +29,7 @@ namespace Eventing.TestHelpers
         public IWhenReady<T> Given<TState>(string streamId, params object[] @events)
         {
             var streamName = StreamCategoryAttribute.GetFullStreamName<TState>(streamId);
-            this.Given(streamId, @events);
+            this.Given(streamName, @events);
             return this;
         }
 
