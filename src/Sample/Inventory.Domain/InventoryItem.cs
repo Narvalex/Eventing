@@ -7,7 +7,7 @@ namespace Inventory.Domain
     {
         public InventoryItem()
         {
-            this.On<InventoryItemCreated>(e => this.StreamName = e.Id.ToString());
+            this.On<InventoryItemCreated>(e => this.SetStreamNameById(e.Id.ToString()));
         }
     }
 
