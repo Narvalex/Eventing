@@ -4,13 +4,17 @@ using System.Threading.Tasks;
 
 namespace Eventing.Client.Http
 {
+    /// <summary>
+    /// This client is for a multi token scenario, like an ASP.NET app. For a single client, like winform, 
+    /// it will be more eficcient to build a custom http client instance
+    /// </summary>
     public abstract class ClientBase
     {
         private readonly string prefix;
-        private readonly HttpLite http;
+        private readonly IHttpLite http;
         private Func<string> tokenProvider;
 
-        public ClientBase(HttpLite http, Func<string> tokenProvider, string prefix = "")
+        public ClientBase(IHttpLite http, Func<string> tokenProvider, string prefix = "")
         {
             Ensure.NotNull(http, nameof(http));
             if (tokenProvider == null)

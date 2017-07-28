@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD80989B-08E7-446A-B967-670BAEB4BD5F}</ProjectGuid>
+    <ProjectGuid>{27FED56B-B9BB-475D-8CBA-A97691AB34AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Eventing.HttpClient</RootNamespace>
-    <AssemblyName>Eventing.HttpClient</AssemblyName>
+    <RootNamespace>Eventing.OfflineClient</RootNamespace>
+    <AssemblyName>Eventing.OfflineClient</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,19 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DropDb|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DropDb\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,16 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientBase.cs" />
-    <Compile Include="ClientBaseExtensions.cs" />
-    <Compile Include="HttpLite.cs" />
-    <Compile Include="IHttpLite.cs" />
+    <Compile Include="IMessageOutbox.cs" />
+    <Compile Include="MessageOutbox.cs" />
+    <Compile Include="OutboxSendResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eventing.Core\Eventing.Core.csproj">
       <Project>{d8a3116a-5c51-4a6f-b364-512948e5a792}</Project>
       <Name>Eventing.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eventing.HttpClient\Eventing.HttpClient.csproj">
+      <Project>{fd80989b-08e7-446a-b967-670baeb4bd5f}</Project>
+      <Name>Eventing.HttpClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

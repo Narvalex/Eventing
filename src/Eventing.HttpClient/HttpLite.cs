@@ -12,11 +12,12 @@ namespace Eventing.Client.Http
     /// <summary>
     /// This could be a whole lot improved with a limited pool
     /// https://pastebin.com/jftEbWrc
-    /// Maybe we could abstract this out with an interface.
-    /// This is a little discusion about it.
     /// https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/
+    /// This is a little discusion about it.
+    /// For multiclient (like a web server) there is no way to make a pool of http clients efficiently, but 
+    /// for a single client (like a WinForm app) we could just have an instance of http lite
     /// </summary>
-    public class HttpLite
+    public class HttpLite : IHttpLite
     {
         private readonly string hostUri;
         private Func<string> threadSafeTokenProvider = () => string.Empty;
@@ -158,17 +159,11 @@ namespace Eventing.Client.Http
                 return;
             else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 throw new RemoteUnauthrorizedResponseException();
+            else if (response.StatusCode == HttpStatusCode.ServiceUnavailable
+                || response.StatusCode == HttpStatusCode.BadGateway)
+                throw new ServiceUnavailableException($"The uri {uri} is unavailable");
             else
                 throw new Exception($"Error on posting to {uri}. Status Code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
-    }
-
-    public class RemoteUnauthrorizedResponseException : Exception
-    {
-        public RemoteUnauthrorizedResponseException()
-        { }
-
-        public RemoteUnauthrorizedResponseException(string message) : base(message)
-        { }
     }
 }
