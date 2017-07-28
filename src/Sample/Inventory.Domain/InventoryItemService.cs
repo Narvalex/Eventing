@@ -20,7 +20,7 @@ namespace Inventory.Domain
 
         public async Task HandleAsync(CheckInItemsToInventory cmd)
         {
-            var item = await this.repository.GetOrFailAsync<InventoryItem>(cmd.Id.ToString());
+            var item = await this.repository.GetOrFailByIdAsync<InventoryItem>(cmd.Id.ToString());
             if (cmd.Count <= 0)
                 throw new InvalidCommandException("Must have a count greater than 0 to add to inventory", nameof(cmd.Count));
             item.Emit(new ItemsCheckedInToInventory(cmd.Id, cmd.Count));

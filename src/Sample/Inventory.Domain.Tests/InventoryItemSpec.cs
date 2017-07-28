@@ -2,7 +2,7 @@
 
 namespace Inventory.Domain.Tests
 {
-    public class InventoryItemSpec
+    public abstract class InventoryItemSpec
     {
         protected TestableEventSourcedService<InventoryItemService> sut;
 
