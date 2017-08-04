@@ -41,8 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMessageOutbox.cs" />
+    <Compile Include="Queues\InMemoryPendingMessagesQueue.cs" />
+    <Compile Include="Queues\IPendingMessagesQueue.cs" />
     <Compile Include="MessageOutbox.cs" />
     <Compile Include="OutboxSendResult.cs" />
+    <Compile Include="Queues\PendingMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,12 +8,13 @@ namespace Eventing.Core.Serialization
     {
         private readonly JsonSerializer serializer;
 
-        public NewtonsoftJsonSerializer()
+        public NewtonsoftJsonSerializer(
+            TypeNameHandling typeName = TypeNameHandling.All)
         {
             this.serializer = JsonSerializer.Create(new JsonSerializerSettings
             {
                 // Allows deserializing to the actual runtime type
-                TypeNameHandling = TypeNameHandling.All,
+                TypeNameHandling = typeName,
                 // In a version resilient way
                 //TypeNameAssemblyFormat = FormatterAssemblyStyle.Simple, [Deprecated]
                 TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,

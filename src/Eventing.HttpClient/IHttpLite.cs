@@ -9,6 +9,7 @@ namespace Eventing.Client.Http
         Task<Stream> Get(string uri, string token = null);
         Task<TResult> Get<TResult>(string uri, string token = null);
         Task<TResult> Post<TContent, TResult>(string uri, TContent content, string token = null);
+        Task Post(string uri, string jsonContent, string token = null);
         Task Post<TContent>(string uri, TContent content, string token = null);
         Task<TResult> Post<TResult>(string uri, string jsonContent, string token = null);
         Task Upload(string uri, Stream fileStream, string fileName, string metadatos, string token = null);

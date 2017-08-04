@@ -56,6 +56,18 @@ namespace Eventing.Client.Http
             }
         }
 
+        public async Task Post(string uri, string jsonContent, string token = null)
+        {
+            using (var client = this.CreateHttpClient(token))
+            {
+                var tokenEndpoint = new Uri(new Uri(this.hostUri), uri);
+                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(tokenEndpoint, stringContent);
+
+                this.EnsureResponseIsOk(uri, response);
+            }
+        }
+
         public async Task<TResult> Post<TResult>(string uri, string jsonContent, string token = null)
         {
             using (var client = this.CreateHttpClient(token))

@@ -4,8 +4,8 @@ namespace Eventing.OfflineClient
 {
     public interface IMessageOutbox
     {
-        Task<OutboxSendStatus> Send<T>(object message);
-        Task<IOutboxSendResult<TResult>> Send<TContent, TResult>(object message);
+        Task<OutboxSendStatus> Send<T>(string url, T message);
+        Task<IOutboxSendResult<TResult>> Send<TContent, TResult>(string url, TContent message);
     }
 
     public enum OutboxSendStatus
