@@ -65,7 +65,7 @@ namespace Eventing.OfflineClient
 
         private void Enqueue<T>(string uri, T message)
         {
-            this.queue.Enqueue(new PendingMessage(uri, this.serializer.Serialize(message)));
+            this.queue.Enqueue(new PendingMessage(uri, typeof(T).FullName, this.serializer.Serialize(message)));
         }
 
         private void SendPendingMessages()
@@ -73,7 +73,9 @@ namespace Eventing.OfflineClient
             while (!this.disposed)
             {
                 PendingMessage pending;
-                if (this.queue.TryPeek(out pending))
+                if (!this.queue.TryPeek(out pending))
+                    this.EnterIdle();
+                else
                 {
                     try
                     {
@@ -89,26 +91,23 @@ namespace Eventing.OfflineClient
                         }
                         else
                         {
-                            showRetry(ex);
+                            enterError(ex);
                             continue;
                         }
                     }
                     catch (Exception ex)
                     {
-                        showRetry(ex);
+                        enterError(ex);
                         continue;
                     }
                 }
-                else
-                    this.EnterIdle();
 
-                void showRetry(Exception ex)
+                void enterError(Exception ex)
                 {
                     var seconds = 30;
                     this.log.Error(ex, $"An error ocurred while trying to send pending message. Retry in {seconds} seconds...");
                     this.EnterIdle(TimeSpan.FromSeconds(seconds));
                 }
-
             }
         }
 
