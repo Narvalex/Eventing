@@ -23,7 +23,7 @@ namespace Eventing.Client.Http
                 this.tokenProvider = () => null;
 
             this.http = http;
-            this.prefix = prefix + "/";
+            this.prefix = prefix != string.Empty ? prefix + "/" : string.Empty;
         }
 
         protected async Task<TResult> Post<TResult>(string uri, string jsonContent)
@@ -65,6 +65,7 @@ namespace Eventing.Client.Http
 
         public void SetupTokenProvider(Func<string> tokenProvider)
         {
+            // On the fly
             this.tokenProvider = tokenProvider;
         }
 

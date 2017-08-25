@@ -10,7 +10,7 @@ namespace Eventing.OfflineClient.EntityFramework.Tests
     public class EntityFramworkPendingMessageQueueSpec
     {
         protected EntityFramworkPendingMessageQueue repository;
-        protected MessageOutbox outbox;
+        protected OfflineClientBase outbox;
         protected TestableHttpClient http;
         protected Func<bool, PendingMessageQueueDbContext> contextFactory;
 
@@ -19,7 +19,7 @@ namespace Eventing.OfflineClient.EntityFramework.Tests
             this.contextFactory = readOnly => new PendingMessageQueueDbContext(readOnly, "TestDb");
             this.http = new TestableHttpClient();
             this.repository = new EntityFramworkPendingMessageQueue(this.contextFactory);
-            this.outbox = new MessageOutbox(this.http, new NewtonsoftJsonSerializer(TypeNameHandling.None), this.repository);
+            this.outbox = new OfflineClientBase(this.http, new NewtonsoftJsonSerializer(TypeNameHandling.None), this.repository);
         }
     }
 

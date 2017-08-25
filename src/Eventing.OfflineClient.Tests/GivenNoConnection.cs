@@ -9,11 +9,11 @@ namespace Eventing.OfflineClient.Tests
     [TestClass]
     public class GivenNoConnection : MessageOutboxSpec
     {
-        private MessageOutbox sut;
+        private OfflineClientBase sut;
 
         public GivenNoConnection()
         {
-            this.sut = new MessageOutbox(this.HttpClient, new NewtonsoftJsonSerializer(TypeNameHandling.None),
+            this.sut = new OfflineClientBase(this.HttpClient, new NewtonsoftJsonSerializer(TypeNameHandling.None),
                 new InMemoryPendingMessagesQueue());
             this.HttpClient.SetOffline();
         }
@@ -28,14 +28,14 @@ namespace Eventing.OfflineClient.Tests
         public void WhenSendingMessageThenReturnsEnqueued()
         {
             var result = this.sut.Send<LoginDto>("uri", new LoginDto { User = "testUser", Password = "1234" }).Result;
-            Assert.AreEqual(OutboxSendStatus.Enqueued, result);
+            Assert.AreEqual(SendStatus.Enqueued, result);
         }
 
         [Test]
         public void WhenSendingMessageExpectingResponseThenReturnsEnqueuedAndTheResponseIsNull()
         {
             var response = this.sut.Send<object, object>("uri", new LoginDto { User = "testUser", Password = "1234" }).Result;
-            Assert.AreEqual(OutboxSendStatus.Enqueued, response.Status);
+            Assert.AreEqual(SendStatus.Enqueued, response.Status);
             Assert.IsNull(response.Result);
         }
 

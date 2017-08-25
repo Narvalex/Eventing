@@ -1,14 +1,14 @@
 ﻿namespace Eventing.OfflineClient
 {
-    public class OutboxSendResult<T> : IOutboxSendResult<T>
+    public class SendResult<T>
     {
-        public OutboxSendResult(OutboxSendStatus status, T result)
+        public SendResult(SendStatus status, T result)
         {
             this.Status = status;
             this.Result = result;
         }
 
-        public OutboxSendStatus Status { get; }
+        public SendStatus Status { get; }
 
         public T Result { get; }
     }

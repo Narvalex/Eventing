@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMessageOutbox.cs" />
+    <Compile Include="IOfflineClient.cs" />
+    <Compile Include="SendStatus.cs" />
     <Compile Include="Queues\IDurablePendingMessageQueue.cs" />
     <Compile Include="Queues\InMemoryPendingMessagesQueue.cs" />
     <Compile Include="Queues\IPendingMessagesQueue.cs" />
-    <Compile Include="MessageOutbox.cs" />
-    <Compile Include="OutboxSendResult.cs" />
+    <Compile Include="OfflineClientBase.cs" />
+    <Compile Include="SendResult.cs" />
     <Compile Include="Queues\PendingMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
