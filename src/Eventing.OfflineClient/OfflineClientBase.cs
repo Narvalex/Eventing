@@ -104,7 +104,7 @@ namespace Eventing.OfflineClient
                     }
                     catch (AggregateException ex)
                     {
-                        if (ex.InnerException is ServiceUnavailableException)
+                        if (ex.InnerException is ServiceUnavailableException || ex.InnerException is HttpRequestException)
                         {
                             this.EnterIdle();
                             continue;

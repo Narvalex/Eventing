@@ -42,7 +42,7 @@ namespace Eventing.OfflineClient.EntityFramework
             {
                 this.ExecuteWriteInSql(ctx =>
                 {
-                    var entity = ctx.PendingMessageQueue.First();
+                    var entity = ctx.PendingMessageQueue.Where(x => x.Sent == false).First();
                     entity.Sent = true;
                     entity.DateSent = DateTime.Now;
                 });
