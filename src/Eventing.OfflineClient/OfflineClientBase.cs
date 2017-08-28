@@ -126,6 +126,7 @@ namespace Eventing.OfflineClient
                 {
                     this.log.Error(ex, $"An error ocurred while trying to send pending message. The client will continue to send messages...");
                     this.onPendingError(ex);
+                    this.queue.Dequeue();
                 }
             }
         }
