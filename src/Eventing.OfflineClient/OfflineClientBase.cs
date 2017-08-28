@@ -2,6 +2,7 @@
 using Eventing.Core.Serialization;
 using Eventing.Log;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,23 +17,28 @@ namespace Eventing.OfflineClient
         private readonly ILogLite log = LogManager.GetLoggerFor<OfflineClientBase>();
         private readonly IHttpLite http;
         private Func<string> tokenProvider;
+        private Action<Exception> onPendingError;
         private readonly IJsonSerializer serializer;
         private readonly IPendingMessagesQueue queue;
         private bool disposed = false;
         private readonly Task thread;
+        private readonly int idleMilliseconds;
 
         public OfflineClientBase(IHttpLite httpClient, IJsonSerializer serializer, IPendingMessagesQueue queue,
-            Func<string> tokenProvider = null, string prefix = "")
+            Func<string> tokenProvider = null, string prefix = "", Action<Exception> onPendingError = null, int idleMilliseconds = 1000)
         {
             Ensure.NotNull(httpClient, nameof(httpClient));
             Ensure.NotNull(serializer, nameof(serializer));
             Ensure.NotNull(queue, nameof(queue));
+            Ensure.Positive(idleMilliseconds, nameof(idleMilliseconds));
 
             this.http = httpClient;
             this.serializer = serializer;
             this.queue = queue;
             this.tokenProvider = tokenProvider is null ? () => null : tokenProvider;
+            this.onPendingError = onPendingError is null ? ex => { } : onPendingError;
             this.prefix = prefix != string.Empty ? prefix + "/" : string.Empty;
+            this.idleMilliseconds = idleMilliseconds;
 
             this.thread = Task.Factory.StartNew(this.SendPendingMessages, TaskCreationOptions.LongRunning);
         }
@@ -45,10 +51,15 @@ namespace Eventing.OfflineClient
                 await this.http.Post<T>(uri, message, this.tokenProvider.Invoke());
                 return SendStatus.Sent;
             }
-            catch (ServiceUnavailableException)
+            catch (Exception ex)
             {
-                this.Enqueue<T>(uri, message);
-                return SendStatus.Enqueued;
+                if (ex is ServiceUnavailableException || ex is HttpRequestException)
+                {
+                    this.Enqueue<T>(uri, message);
+                    return SendStatus.Enqueued;
+                }
+
+                throw;
             }
         }
 
@@ -60,10 +71,15 @@ namespace Eventing.OfflineClient
                 var result = await this.http.Post<TContent, TResult>(uri, message, this.tokenProvider.Invoke());
                 return new SendResult<TResult>(SendStatus.Sent, result);
             }
-            catch (ServiceUnavailableException)
+            catch (Exception ex)
             {
-                this.Enqueue<TContent>(uri, message);
-                return new SendResult<TResult>(SendStatus.Enqueued, default(TResult));
+                if (ex is ServiceUnavailableException || ex is HttpRequestException)
+                {
+                    this.Enqueue<TContent>(uri, message);
+                    return new SendResult<TResult>(SendStatus.Enqueued, default(TResult));
+                }
+
+                throw;
             }
         }
 
@@ -108,9 +124,8 @@ namespace Eventing.OfflineClient
 
                 void enterError(Exception ex)
                 {
-                    var seconds = 30;
-                    this.log.Error(ex, $"An error ocurred while trying to send pending message. Retry in {seconds} seconds...");
-                    this.EnterIdle(TimeSpan.FromSeconds(seconds));
+                    this.log.Error(ex, $"An error ocurred while trying to send pending message. The client will continue to send messages...");
+                    this.onPendingError(ex);
                 }
             }
         }
@@ -126,11 +141,10 @@ namespace Eventing.OfflineClient
             return this.prefix + uri;
         }
 
-        private void EnterIdle() => this.EnterIdle(TimeSpan.FromMilliseconds(100));
-        private void EnterIdle(TimeSpan timeSpan)
+        private void EnterIdle()
         {
             if (this.disposed) return;
-            Thread.Sleep(timeSpan);
+            Thread.Sleep(this.idleMilliseconds);
         }
 
         public void Dispose()
