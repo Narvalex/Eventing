@@ -99,7 +99,7 @@ namespace Eventing.OfflineClient
                 {
                     try
                     {
-                        this.http.Post(pending.Url, pending.Payload).Wait();
+                        this.http.Post(pending.Url, pending.Payload, this.tokenProvider.Invoke()).Wait();
                         this.queue.Dequeue();
                     }
                     catch (AggregateException ex)
