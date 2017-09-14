@@ -91,7 +91,7 @@ namespace Eventing.TestHelpers
         {
             // var events = eventSourced.NewEvents; // this reference will die.
             var events = new List<object>();
-            events.AddRange(eventSourced.NewEvents);
+            events.AddRange(eventSourced.Dehydrate());
             var snapshot = eventSourced.TakeSnapshot();
             await base.SaveAsync(eventSourced);
             this.lastCommited = events.Select(x => this.serializer.Serialize(x)).ToList();
