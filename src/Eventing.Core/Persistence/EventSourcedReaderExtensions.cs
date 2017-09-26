@@ -44,7 +44,32 @@ namespace Eventing.Core.Persistence
             throw new InvalidOperationException($"The stream {streamName} does not exists!");
         }
 
-        private static string GetStreamName<T>(string streamId) where T : class, IEventSourced, new()
+        public static async Task<BulkExistenceChecker> EnsureExistenceOf<T>(this IEventSourcedReader reader, string streamId)
+            where T : class, IEventSourced, new()
+        {
+            await reader.EnsureExistence(GetStreamName<T>(streamId));
+            return new BulkExistenceChecker(reader);
+        }
+
+        private static string GetStreamName<T>(string streamId)
+            where T : class, IEventSourced, new()
             => StreamCategoryAttribute.GetFullStreamName<T>(streamId);
+
+        public class BulkExistenceChecker
+        {
+            private readonly IEventSourcedReader reader;
+
+            public BulkExistenceChecker(IEventSourcedReader reader)
+            {
+                this.reader = reader;
+            }
+
+            public async Task<BulkExistenceChecker> And<T>(string streamId)
+                where T : class, IEventSourced, new()
+            {
+                await this.reader.EnsureExistence<T>(streamId);
+                return this;
+            }
+        }
     }
 }
