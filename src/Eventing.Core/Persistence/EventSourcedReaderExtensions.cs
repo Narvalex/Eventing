@@ -6,7 +6,8 @@ namespace Eventing.Core.Persistence
 {
     public static class EventSourcedReaderExtensions
     {
-        public static async Task<T> GetByIdAsync<T>(this IEventSourcedReader reader, string streamId) where T : class, IEventSourced, new()
+        public static async Task<T> GetByIdAsync<T>(this IEventSourcedReader reader, string streamId)
+            where T : class, IEventSourced, new()
         {
             return await reader.GetAsync<T>(GetStreamName<T>(streamId));
         }
@@ -26,11 +27,13 @@ namespace Eventing.Core.Persistence
         }
 
         public static async Task<bool> Exists<T>(this IEventSourcedReader reader, string streamId)
+            where T : class, IEventSourced, new()
         {
             return await reader.Exists(GetStreamName<T>(streamId));
         }
 
         public static async Task EnsureExistence<T>(this IEventSourcedReader reader, string streamId)
+            where T : class, IEventSourced, new()
         {
             await reader.EnsureExistence(GetStreamName<T>(streamId));
         }
@@ -41,6 +44,7 @@ namespace Eventing.Core.Persistence
             throw new InvalidOperationException($"The stream {streamName} does not exists!");
         }
 
-        private static string GetStreamName<T>(string streamId) => StreamCategoryAttribute.GetFullStreamName<T>(streamId);
+        private static string GetStreamName<T>(string streamId) where T : class, IEventSourced, new()
+            => StreamCategoryAttribute.GetFullStreamName<T>(streamId);
     }
 }
