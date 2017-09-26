@@ -1,8 +1,8 @@
-﻿using Eventing.Core.Persistence;
+﻿using Eventing.Core.Domain;
 using System;
 using System.Threading.Tasks;
 
-namespace Eventing.Core.Domain
+namespace Eventing.Core.Persistence
 {
     public static class EventSourcedReaderExtensions
     {
