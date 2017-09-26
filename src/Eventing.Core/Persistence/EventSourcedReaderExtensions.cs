@@ -1,5 +1,6 @@
 ﻿using Eventing.Core.Domain;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Eventing.Core.Persistence
@@ -44,11 +45,10 @@ namespace Eventing.Core.Persistence
             throw new InvalidOperationException($"The stream {streamName} does not exists!");
         }
 
-        public static async Task<BulkExistenceChecker> EnsureExistenceOf<T>(this IEventSourcedReader reader, string streamId)
+        public static BulkExistenceChecker EnsureExistenceOf<T>(this IEventSourcedReader reader, string streamId)
             where T : class, IEventSourced, new()
         {
-            await reader.EnsureExistence(GetStreamName<T>(streamId));
-            return new BulkExistenceChecker(reader);
+            return new BulkExistenceChecker(reader, GetStreamName<T>(streamId));
         }
 
         private static string GetStreamName<T>(string streamId)
@@ -58,17 +58,25 @@ namespace Eventing.Core.Persistence
         public class BulkExistenceChecker
         {
             private readonly IEventSourcedReader reader;
+            private readonly List<string> streams = new List<string>();
 
-            public BulkExistenceChecker(IEventSourcedReader reader)
+            internal BulkExistenceChecker(IEventSourcedReader reader, string streamId)
             {
                 this.reader = reader;
+                this.streams.Add(streamId);
             }
 
-            public async Task<BulkExistenceChecker> And<T>(string streamId)
+            public BulkExistenceChecker And<T>(string streamId)
                 where T : class, IEventSourced, new()
             {
-                await this.reader.EnsureExistence<T>(streamId);
+                this.streams.Add(GetStreamName<T>(streamId));
                 return this;
+            }
+
+            public async Task AndNothingMore()
+            {
+                foreach (var stream in this.streams)
+                    await this.reader.EnsureExistence(stream);
             }
         }
     }
