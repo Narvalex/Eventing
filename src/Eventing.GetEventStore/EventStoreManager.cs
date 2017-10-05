@@ -71,14 +71,6 @@ namespace Eventing.GetEventStore
             }
             this.log.Info("Starting EventStore from scratch...");
             this.InitializeDb();
-            this.log.Info("EventStore is warming up. Checking a test connections for 3 seconds...");
-            var connection = this.GetFailFastConnection().Result;
-            connection = this.resilientConnection;
-            Thread.Sleep(3000);
-            this.log.Info("Restarting the event store now...");
-            this.KillEventStoreProcess();
-            this.InitializeDb();
-            this.log.Info("EventStore connection succeded! EventStore is up and running");
         }
 
         private void InitializeDb()
