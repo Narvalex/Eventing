@@ -1,5 +1,7 @@
 # Eventing
-Common event sourcing code 
+Common event sourcing code
+
+This is no longer being maintained. See agrobook repo to grab an updated sample.
 
 Help:
 For publishing a self hosted Web Api in windows:
