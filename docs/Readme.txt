@@ -1,1 +1,0 @@
-- Important! Add ignore file for your event store data
