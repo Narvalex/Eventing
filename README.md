@@ -1,3 +1,3 @@
 # Eventing
 
-Event sourced ACID multistream cross-aggregates transactions with EventStoreDB 
+Event sourced ACID multi-stream cross-agregate transactions with EventStoreDB
